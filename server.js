@@ -30,8 +30,6 @@ server.get('/:id', async(req, res) =>{
     }
 });
 
-// Data.add
-
 server.post('/', async(req, res) => {
     // const info = { req.body }
     try {
@@ -42,9 +40,27 @@ server.post('/', async(req, res) => {
     }
 });
 
-
-
-
 // Data.update
+server.put('/:id', async(req, res) => {
+    try {
+        const data = await Data.update(req.params.id, req.body);
+        if(data) {
+            res.json({data});
+        } else {
+            res.status(404).json({ msg: 'Data not found.'})
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Error updating.'});
+    }
+});
+
+
 // Data.remove
+
+server.post('/', async(req, res) => {
+    
+})
+
+
 module.exports = server;
