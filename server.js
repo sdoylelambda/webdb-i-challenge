@@ -58,9 +58,19 @@ server.put('/:id', async(req, res) => {
 
 // Data.remove
 
-server.post('/', async(req, res) => {
-    
-})
+server.delete('/:id', async(req, res) => {
+    try {
+        const count = await Data.remove(req.params.id);
+        if (count > 0) {
+            res.json({ msg: 'The data has been removed.' })
+        } else {
+            res.status(404).json({ msg: 'Data not found.'})
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: 'Error deleting data.'});
+    }
+});
 
 
 module.exports = server;
