@@ -30,4 +30,21 @@ server.get('/:id', async(req, res) =>{
     }
 });
 
+// Data.add
+
+server.post('/', async(req, res) => {
+    // const info = { req.body }
+    try {
+        const msg = await Data.add(req.body)
+        res.status(201).json(msg);
+    } catch (error) {
+        res.status(404).json({ err: 'The message could not be posted.'});
+    }
+});
+
+
+
+
+// Data.update
+// Data.remove
 module.exports = server;
